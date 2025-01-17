@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:scan_go/constants/constants.dart';
+import 'package:scan_go/others/constants.dart';
+import 'package:scan_go/others/navigation_widget.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
-import 'package:scan_go/widgets/navigation_widget.dart';
-import 'package:scan_go/views/scan_qr.dart';
-import 'package:scan_go/views/generate_qr.dart';
+import 'package:scan_go/others/scan_qr.dart';
 
 void main() async {
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
@@ -54,47 +53,23 @@ class MainView extends StatelessWidget {
             child: Column(
               children: [
                 Image(image: logoRemoveBg, width: 130),
-                Text("ScanGo", style: g16),
+                Text("ScanGo", style: g18),
                 Padding(
-                  padding: const EdgeInsets.all(16),
-                  child: Row(
-                    spacing: 10,
-                    children: [
-                      Expanded(
-                        child: GestureDetector(
-                          onTap: () {
-                            navigationWidget(context, ScanQR());
-                          },
-                          child: Container(
-                            height: 100,
-                            decoration: BoxDecoration(
-                              color: gClr,
-                              borderRadius: BorderRadius.circular(12),
-                            ),
-                            child: Center(
-                              child: Text("Scan QR", style: w16),
-                            ),
-                          ),
-                        ),
+                  padding: const EdgeInsets.only(top: 48, left: 24, right: 24),
+                  child: GestureDetector(
+                    onTap: () {
+                      navigationWidget(context, ScanQR());
+                    },
+                    child: Container(
+                      height: 100,
+                      decoration: BoxDecoration(
+                        color: gClr,
+                        borderRadius: BorderRadius.circular(24),
                       ),
-                      Expanded(
-                        child: GestureDetector(
-                          onTap: () {
-                            navigationWidget(context, GenerateQR());
-                          },
-                          child: Container(
-                            height: 100,
-                            decoration: BoxDecoration(
-                              color: gClr,
-                              borderRadius: BorderRadius.circular(12),
-                            ),
-                            child: Center(
-                              child: Text("Generate QR", style: w16),
-                            ),
-                          ),
-                        ),
+                      child: Center(
+                        child: Text("Scan QR", style: w18),
                       ),
-                    ],
+                    ),
                   ),
                 ),
               ],

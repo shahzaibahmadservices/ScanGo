@@ -1,12 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:mobile_scanner/mobile_scanner.dart';
-import 'package:scan_go/constants/constants.dart';
-import 'dart:typed_data';
+import 'package:scan_go/others/constants.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:mobile_scanner/mobile_scanner.dart';
+import 'dart:typed_data';
 
-class ScanQR extends StatelessWidget {
+class ScanQR extends StatefulWidget {
   const ScanQR({super.key});
 
+  @override
+  State<ScanQR> createState() => _ScanQRState();
+}
+
+class _ScanQRState extends State<ScanQR> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -36,23 +41,14 @@ class ScanQR extends StatelessWidget {
                       title: GestureDetector(
                         onTap: () async {
                           final url = barcodes.first.rawValue;
-                          if (url != null) {
-                            final uri = Uri.parse(url);
-                            if (await canLaunchUrl(uri)) {
-                              await launchUrl(
-                                uri,
-                                mode: LaunchMode.externalApplication,
-                              );
-                            } else {
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                SnackBar(
-                                  showCloseIcon: true,
-                                  content:
-                                      Text('Could not launch URL', style: g16),
-                                ),
-                              );
+                          final Uri uri = Uri.parse(url!);
+                          Future<void> onLauchUrl() async {
+                            if (!await launchUrl(uri)) {
+                              throw Exception();
                             }
                           }
+
+                          onLauchUrl();
                         },
                         child: Text(
                           barcodes.first.rawValue ?? '',
